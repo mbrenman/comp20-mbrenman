@@ -7,11 +7,11 @@
 	}
 }
 @media all {
-	#reference {
-		visibility: visible;
-		font-size: 64px;
-		color: blue;
-		outline-color: white;
-		outline-width: 10px;
+	.footer{
+		width: 99%;
+	    position:fixed;
+	    bottom:0px;
+	    text-align: right;
+	    background-color: white;
 	}
 }
