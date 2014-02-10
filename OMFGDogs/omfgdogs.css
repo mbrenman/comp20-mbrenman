@@ -1,3 +1,17 @@
-body {
-	background-image: url('omfgdogs.gif');
+@media (min-width: 992px) {
+	body {
+		background-image: url('omfgdogs.gif');
+	}
+	p {
+		visibility: hidden;
+	}
+}
+@media all {
+	#reference {
+		visibility: visible;
+		font-size: 64px;
+		color: blue;
+		outline-color: white;
+		outline-width: 10px;
+	}
 }
