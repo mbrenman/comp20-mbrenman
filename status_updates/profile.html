@@ -8,7 +8,13 @@
 <script type="text/javascript">
 	function add_update(){
 		var status = document.getElementById("msg").value;
-		console.log(status); 
+		var update_list = document.getElementById("status");
+
+		elem = document.createElement("div");
+		elem.innerHTML = status;
+
+		update_list.insertBefore(elem, update_list.firstChild);
+		console.log(status);
 	};
 </script>
 </head>
