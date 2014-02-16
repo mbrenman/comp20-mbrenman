@@ -2,68 +2,67 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
 <title>Fecesbook</title>
 <script type="text/javascript">
-	function add_update(){
-		var statusElem = document.getElementById("msg");
-		var status = statusElem.value;
-		statusElem.value = ''; //Clear out the message bar to signal successful post
+    function add_update() {
+        var statusElem = document.getElementById("msg");
+        var status = statusElem.value;
+        statusElem.value = ''; //Clear out the message bar to signal successful post
 
-		var update_list = document.getElementById("status");
-		var stamp = getPostTimeStamp();
-		
-		var elem = document.createElement("div");
-		elem.innerHTML = stamp + status;
+        var update_list = document.getElementById("status");
+        var stamp = getPostTimeStamp();
+        
+        var elem = document.createElement("div");
+        elem.innerHTML = stamp + status;
 
-		update_list.insertBefore(elem, update_list.firstChild);
-	};
+        update_list.insertBefore(elem, update_list.firstChild);
+    };
 
-	function getPostTimeStamp (){
-		var dateobj = new Date();
-		var days = dateobj.getDate();
-		var mons = dateobj.getMonth() + 1;
-		var years = dateobj.getFullYear();
-		var hours = dateobj.getHours();
-		var mins = dateobj.getMinutes();
-		return mons + '/' + days + '/' + years + ' ' + hours + ':' + mins + ' - ';
-	};
+    function getPostTimeStamp () {
+        var dateobj = new Date();
+        var days = dateobj.getDate();
+        var mons = dateobj.getMonth() + 1;
+        var years = dateobj.getFullYear();
+        var hours = dateobj.getHours();
+        var mins = dateobj.getMinutes();
+        return mons + '/' + days + '/' + years + ' ' + hours + ':' + mins + ' - ';
+    };
 </script>
 </head>
 
 <body>
-	<h1>Fecebook</h1>
-	<div id="nav">
-		<ul>
-			<li id="home">Home</li>
-			<li id="groups">Groups</li>
-			<li id="profile">Profile</li>
-			<li id="contacts">Contacts</li>
-			<li id="inbox">Inbox</li>
-			<li id="applications">Applications</li>
-		</ul>
-	</div>
-	<h2 id="fullname">Barney Gumble</h2>
-	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="add_update()" /></h3>
-	<h3>Updates</h3>
-	<div id="status">
-	</div>
-	<div id="yesterday">
-		<h3>Updates from yesterday:</h3>
-		<ul>
-			<li>Alice is now connected to Bob</li>
-			<li>Tom recommends Jerry</li>
-			<li>Harry just returned from a trip from Curaco</li>
-		</ul>
-	</div>
-	<div id="longlongtimeago">
-		<h3>Updates from long long time ago:</h3>
-		<ul>
-			<li>Harry just returned from a trip from Curaco</li>
-			<li>Joan is now connected to Mary</li>
-			<li>Steven is now connected to James</li>
-		</ul>
-	</div>
+    <h1>Fecebook</h1>
+    <div id="nav">
+        <ul>
+            <li id="home">Home</li>
+            <li id="groups">Groups</li>
+            <li id="profile">Profile</li>
+            <li id="contacts">Contacts</li>
+            <li id="inbox">Inbox</li>
+            <li id="applications">Applications</li>
+        </ul>
+    </div>
+    <h2 id="fullname">Barney Gumble</h2>
+    <h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="add_update()" /></h3>
+    <h3>Updates</h3>
+    <div id="status">
+    </div>
+    <div id="yesterday">
+        <h3>Updates from yesterday:</h3>
+        <ul>
+            <li>Alice is now connected to Bob</li>
+            <li>Tom recommends Jerry</li>
+            <li>Harry just returned from a trip from Curaco</li>
+        </ul>
+    </div>
+    <div id="longlongtimeago">
+        <h3>Updates from long long time ago:</h3>
+        <ul>
+            <li>Harry just returned from a trip from Curaco</li>
+            <li>Joan is now connected to Mary</li>
+            <li>Steven is now connected to James</li>
+        </ul>
+    </div>
 </body>
 </html>
