@@ -10,11 +10,18 @@
 		var status = document.getElementById("msg").value;
 		var update_list = document.getElementById("status");
 
-		elem = document.createElement("div");
+		var elem = document.createElement("div");
 		elem.innerHTML = status;
 
+		var dateobj = new Date();
+		var d = dateobj.getDate();
+		var m = dateobj.getMonth() + 1;
+		var y = dateobj.getFullYear();
+
+		var postDate = m + '/' + d + '/' + y + ' - ';
+
 		update_list.insertBefore(elem, update_list.firstChild);
-		console.log(status);
+		console.log(postDate);
 	};
 </script>
 </head>
