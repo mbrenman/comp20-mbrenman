@@ -7,21 +7,27 @@
 <title>Fecesbook</title>
 <script type="text/javascript">
 	function add_update(){
-		var status = document.getElementById("msg").value;
+		var statusElem = document.getElementById("msg");
+		var status = statusElem.value;
+		statusElem.value = ''; //Clear out the message bar to signal successful post
+
 		var update_list = document.getElementById("status");
-
+		var stamp = getPostTimeStamp();
+		
 		var elem = document.createElement("div");
-		elem.innerHTML = status;
-
-		var dateobj = new Date();
-		var d = dateobj.getDate();
-		var m = dateobj.getMonth() + 1;
-		var y = dateobj.getFullYear();
-
-		var postDate = m + '/' + d + '/' + y + ' - ';
+		elem.innerHTML = stamp + status;
 
 		update_list.insertBefore(elem, update_list.firstChild);
-		console.log(postDate);
+	};
+
+	function getPostTimeStamp (){
+		var dateobj = new Date();
+		var days = dateobj.getDate();
+		var mons = dateobj.getMonth() + 1;
+		var years = dateobj.getFullYear();
+		var hours = dateobj.getHours();
+		var mins = dateobj.getMinutes();
+		return mons + '/' + days + '/' + years + ' ' + hours + ':' + mins + ' - ';
 	};
 </script>
 </head>
