@@ -41,6 +41,41 @@ function draw() {
             sizey = 57;
             //Draw dog
             ctx.drawImage(sprite_sheet, x*sizex, y*sizey, sizex, sizey, 100, height-(1.5*sizey), 1.5*sizex, 1.5*sizey);
+
+            x = 130;
+            y = 118;
+            sizex = 34;
+            sizey = 24;
+            //Draw duck1
+            ctx.drawImage(sprite_sheet, x, y, sizex, sizey, 200, 400, sizex, sizey);
+
+            x = 341;
+            y = 118;
+            sizex = 32;
+            sizey = 30;
+            //Draw duck2
+            ctx.drawImage(sprite_sheet, x, y, sizex, sizey, 600, 200, sizex, sizey);
+
+            x = 341;
+            y = 198;
+            sizex = 32;
+            sizey = 30;
+            //Draw duck3
+            ctx.drawImage(sprite_sheet, x, y, sizex, sizey, 400, 100, sizex, sizey);
+
+            x = 4;
+            y = 157;
+            sizex = 25;
+            sizey = 31;
+            //Draw duck4
+            ctx.drawImage(sprite_sheet, x, y, sizex, sizey, 100, 50, sizex, sizey);
+
+            x = 170;
+            y = 118;
+            sizex = 34;
+            sizey = 24;
+            //Draw duck5
+            ctx.drawImage(sprite_sheet, x, y, sizex, sizey, 550, 400, sizex, sizey);
         };
         sprite_sheet.src = 'assets/duckhunt.png';
     } 
