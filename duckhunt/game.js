@@ -8,14 +8,11 @@ function draw() {
     if (canvas.getContext) {
         ctx = canvas.getContext('2d');
         var sprite_sheet = new Image();
-        sprite_sheet.onload = function dog(){
-            // if (x == 4) {return;};
-        	//clear background
-            // alert('aaa');
+        sprite_sheet.onload = function draw_images(){
+
         	ctx.fillStyle = "#87CEEB";
         	ctx.fillRect(0,0,width,height);
 
-        	console.log(x);
         	var x = 0;
         	var y = 0;
         	var sizex = 0;
