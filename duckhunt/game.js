@@ -1,5 +1,3 @@
-
-
 function draw() {
     canvas = document.getElementById('game');
     var width = canvas.getAttribute('width');
@@ -10,18 +8,15 @@ function draw() {
         var sprite_sheet = new Image();
         sprite_sheet.onload = function draw_images(){
 
+            //Cover the background with the sky color - clears out previous images
         	ctx.fillStyle = "#87CEEB";
         	ctx.fillRect(0,0,width,height);
 
+            //Image drawing attributes
         	var x = 0;
-        	var y = 0;
-        	var sizex = 0;
-        	var sizey = 0;
-
-            x = 0
-            sizex = 77
-            y = 273
-            sizey = 122
+        	var y = 273;
+        	var sizex = 77;
+        	var sizey = 122;
             //Draw tree
             ctx.drawImage(sprite_sheet, x, y, sizex, sizey, width/3, height-sizey-180, 1.7*sizex, 1.7*sizey);
 
