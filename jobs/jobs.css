@@ -1,5 +1,9 @@
 .job {
 	border: dotted;
-	color: blue;
 	margin: 15px;
+	padding: 5px;
+	background-color: yellow;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	list-style-type: none;
 }
