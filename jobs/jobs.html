@@ -14,14 +14,17 @@
 		var job_list = document.getElementById("list");
 
 		for (i in jobs) {
+			//Get relevant data
 			var job = jobs[i]
 			var j_company  = job["company"];
 			var j_location = job["location"];
 			var j_position = job["position"];
 			
+			//create single job object
 			var job_listing = document.createElement("ul");
 			job_listing.className = "job";
 
+			//create single job info objects
 			var company_item = document.createElement("li");
 			company_item.innerHTML = "Company: " + j_company;
 
@@ -31,10 +34,12 @@
 			var position_item = document.createElement("li");
 			position_item.innerHTML = "Position: " + j_position;
 
+			//populate single job object
 			job_listing.appendChild(company_item);
 			job_listing.appendChild(location_item);
 			job_listing.appendChild(position_item);
 			
+			//add single job object to page
 			job_list.appendChild(job_listing);
 		}
 	}
