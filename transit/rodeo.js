@@ -143,11 +143,12 @@ function makeScheduleTable(stop)
 			+		"<td style='border: 1px solid black; font-weight:bold;'>Trip ID</td>"
 			+	"</tr>";
 	trains = scheduleData["schedule"];
+	tableElems = [];
 	for (t in trains) {
 		train = trains[t];
 		dest = train["Destination"];
 		predicts = train["Predictions"];
-		tableElems = [];
+		
 		for (p in predicts) {
 			stationData = predicts[p];
 			if (stationData["Stop"] == stop) {
@@ -155,17 +156,17 @@ function makeScheduleTable(stop)
 				tableElems.push(pred);
 			}
 		}
-		tableElems = tableElems.sort(function(a,b){ return a[1] - b[1] });
-		console.log(tableElems);
-		console.log("there it is!");
-		for (t in tableElems){
-			row = tableElems[t];
-			tbl += "<tr style='border: 1px solid black;'>";
-			for (i in row) {
-				tbl += "<td style='border: 1px solid black;'>" + row[i] + "</td>";
-			}
-			tbl += "</tr>";
+	}
+	tableElems = tableElems.sort(function(a,b){ return a[1] - b[1] });
+	console.log(tableElems);
+	console.log("there it is!");
+	for (t in tableElems){
+		row = tableElems[t];
+		tbl += "<tr style='border: 1px solid black;'>";
+		for (i in row) {
+			tbl += "<td style='border: 1px solid black;'>" + row[i] + "</td>";
 		}
+		tbl += "</tr>";
 	}
 	tbl += "</table>";
 	return tbl;
