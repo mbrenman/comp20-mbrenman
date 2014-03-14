@@ -95,7 +95,8 @@ function renderTLine(color)
 	console.log("all the line");
 	console.log(tstationline);
 	for (i in tstationline) {
-		line = tstationline[i]
+		console.log(i);
+		line = tstationline[i];
 		console.log("one branch");
 		console.log(line);
 		stopLatLngArr = new Array();
@@ -124,17 +125,15 @@ function renderTLine(color)
 				}
 			})(stationMarker));
 		}
-
-		var pLine = new google.maps.Polyline({
-		  path: stopLatLngArr,
-		  geodesic: true,
-		  strokeColor: '#FF0000',
-		  strokeOpacity: 1.0,
-		  strokeWeight: 2
-		});
-
-		pLine.setMap(map);
 	}
+		// var pLine = new google.maps.Polyline({
+		//   path: stopLatLngArr,
+		//   geodesic: true,
+		//   strokeColor: '#FF0000',
+		//   strokeOpacity: 1.0,
+		//   strokeWeight: 2
+		// });
+		// pLine.setMap(map);
 }
 
 function createMarker(place)
