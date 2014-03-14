@@ -84,10 +84,14 @@ function renderTLine(color)
 		console.log(name);
 		stationMarker.setMap(map);
 
-		google.maps.event.addListener(stationMarker, 'click', function() {
-			infowindow.setContent(stationMarker.title);
-			infowindow.open(map, stationMarker);
-		});
+		console.log("new");
+
+		google.maps.event.addListener(stationMarker, 'click', function(m) {
+			return function() {
+				infowindow.setContent(m.title);
+				infowindow.open(map, m);
+			}
+		})(stationMarker);
 	}
 }
 
