@@ -89,11 +89,45 @@ function renderMap()
 		infowindow.open(map, marker);
 	});
 	alert ("should be rendered!")
+	displayClosestStation();
+}
+
+function displayClosestStation()
+{
+	line = tlines[scheduleData["line"]];
+	shortestDist = 9999999;
+	closestStation = ""
+	for (b in line) {
+		branch = line[b];
+		for (s in branch) {
+			stop = branch[s];
+			dist = haversine(myLat,myLng,stop[1],stop[2]);
+			if (dist < shortestDist) {
+				shortestDist = dist;
+				closestStation = stop[0];
+			}
+		}
+	}
+	alert("You are at (" + myLat + ", " + myLng + "), and the closest station is " + closestStation + ", which is " + shortestDist + " miles away.");
+}
+
+function haversine(lat1, lon1, lat2, lon2){
+	//From: http://www.movable-type.co.uk/scripts/latlong.html
+	var R = 6371; // km
+	var dLat = (lat2-lat1).toRad();
+	var dLon = (lon2-lon1).toRad();
+	var lat1 = lat1.toRad();
+	var lat2 = lat2.toRad();
+
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c;
+	return d / 1.609344 //To be miles
 }
 
 function renderTLine(color)
 {
-
 	lineColor = chooseColor(color);
 	alert("new commit");
 	tstationline = tlines[color]
@@ -114,7 +148,6 @@ function renderTLine(color)
 			console.log(station);
 		}
 		addPolyLine(stopLatLngArr, map, lineColor)
-
 	}
 }
 
