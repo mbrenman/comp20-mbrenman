@@ -113,6 +113,14 @@ function displayClosestStation()
 
 function haversine(lat1, lon1, lat2, lon2){
 	//From: http://www.movable-type.co.uk/scripts/latlong.html
+
+	if (typeof(Number.prototype.toRad) === "undefined") {
+		/** Converts numeric degrees to radians */
+	  	Number.prototype.toRad = function() {
+	    	return this * Math.PI / 180;
+		}
+	}
+
 	var R = 6371; // km
 	var dLat = (lat2-lat1).toRad();
 	var dLon = (lon2-lon1).toRad();
@@ -126,18 +134,10 @@ function haversine(lat1, lon1, lat2, lon2){
 	return d / 1.609344; //To be miles
 }
 
-/** Converts numeric degrees to radians */
-//From: http://www.movable-type.co.uk/scripts/latlong.html
-if (typeof(Number.prototype.toRad) === "undefined") {
-  Number.prototype.toRad = function() {
-    return this * Math.PI / 180;
-  }
-}
-
 function renderTLine(color)
 {
 	lineColor = chooseColor(color);
-	alert("new commit");
+	alert("newnewnew commit");
 	tstationline = tlines[color]
 	console.log("all the line");
 	console.log(tstationline);
