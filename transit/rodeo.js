@@ -133,7 +133,7 @@ function renderTLine(color)
 		  strokeWeight: 2
 		});
 
-		flightPath.setMap(map);
+		pLine.setMap(map);
 	}
 }
 
