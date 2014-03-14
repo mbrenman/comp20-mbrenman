@@ -28,7 +28,6 @@ function init()
 {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	getScheduleData();
-	getMyLocation();
 }
 
 function getScheduleData(){
@@ -41,6 +40,8 @@ function getScheduleData(){
 function dataReady() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		scheduleData = JSON.parse(xhr.responseText);
+		console.log(scheduleData["line"]);
+		getMyLocation(); //Start making the map only after we know what line we should render
 	}
 	else if (xhr.readyState == 4 && xhr.status == 500) {
 		getScheduleData(); //Try again and never have an error
