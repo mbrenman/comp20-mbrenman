@@ -85,11 +85,10 @@ function renderMap()
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(marker.title);
+		infowindow.setContent(displayClosestStation());
 		infowindow.open(map, marker);
 	});
 	alert ("should be rendered!")
-	displayClosestStation();
 }
 
 function displayClosestStation()
@@ -111,7 +110,7 @@ function displayClosestStation()
 	}
 	console.log(shortestDist);
 	console.log(closestStation);
-	alert("You are at (" + myLat + ", " + myLng + "), and the closest station is " + closestStation + ", which is " + shortestDist + " miles away.");
+	return "<h1><You are here</h1>The closest station to you is <em>" + closestStation + "</em>, which is ~" + shortestDist + " miles away from you.";
 }
 
 function haversine(lat1, lon1, lat2, lon2){
