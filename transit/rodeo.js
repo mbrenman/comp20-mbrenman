@@ -127,8 +127,7 @@ function addTStation(name, loc, map){
 	stationMarker.setMap(map);
 	google.maps.event.addListener(stationMarker, 'click', (function(m) {
 		return function() {
-			infowindow.setContent(m.title);
-			makeScheduleTable(m.title);
+			infowindow.setContent(makeScheduleTable(m.title));
 			infowindow.open(map, m);
 		}
 	})(stationMarker));
@@ -136,6 +135,7 @@ function addTStation(name, loc, map){
 
 function makeScheduleTable(stop)
 {
+	tbl = "<table>";
 	trains = scheduleData["schedule"];
 	for (t in trains) {
 		train = trains[t];
@@ -144,10 +144,18 @@ function makeScheduleTable(stop)
 		for (p in predicts) {
 			stationData = predicts[p];
 			if (stationData["Stop"] == stop) {
+				tbl += "<tr>";
+				tbl += "<td>" + stop + "</td>";
+				tbl += "<td>" + stationData["Seconds"] + "</td>";
+				tbl += "<td>" + dest + "</td>";
+				tbl += "<td>" + train["TripID"] + "</td>";
 				console.log(stationData);
+				tbl += "</tr>";
 			}
 		}
 	}
+	tbl += "</table>";
+	return tbl;
 }
 
 function addPolyLine(stopLatLngArr, map, lineColor){
