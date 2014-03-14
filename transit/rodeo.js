@@ -149,12 +149,12 @@ function makeScheduleTable(stop)
 				tableElems.push(pred);
 			}
 		}
-		tableElems.sort(function(a,b){ return a[1] > b[1] });
+		tableElems.sort(function(a,b){ return a[1] - b[1] });
 		for (t in tableElems){
 			row = tableElems[t];
-			tbl += "<tr>";
+			tbl += "<tr style='border: 1px solid black;'>";
 			for (i in row) {
-				tbl += "<td>" + row[i] + "</td>";
+				tbl += "<td style='border: 1px solid black;'>" + row[i] + "</td>";
 			}
 			tbl += "</tr>";
 		}
