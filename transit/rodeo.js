@@ -88,6 +88,7 @@ function renderMap()
 
 function renderTLine(color)
 {
+	alert(color);
 	tstationline = tlines[color]
 	for (i in tstationline) {
 		station = tstationline[i];
