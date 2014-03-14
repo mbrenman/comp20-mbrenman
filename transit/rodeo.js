@@ -100,6 +100,7 @@ function displayClosestStation()
 	for (b in line) {
 		branch = line[b];
 		for (s in branch) {
+			console.log(branch[s][0]);
 			stop = branch[s];
 			dist = haversine(myLat,myLng,stop[1],stop[2]);
 			if (dist < shortestDist) {
@@ -108,6 +109,8 @@ function displayClosestStation()
 			}
 		}
 	}
+	console.log(shortestDist);
+	console.log(closestStation);
 	alert("You are at (" + myLat + ", " + myLng + "), and the closest station is " + closestStation + ", which is " + shortestDist + " miles away.");
 }
 
