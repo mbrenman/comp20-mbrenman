@@ -86,7 +86,7 @@ function renderTLine(color)
 
 		console.log("new");
 
-		google.maps.event.addListener(stationMarker, 'click', function(m) {
+		google.maps.event.addListener(stationMarker, 'click', (function(m) {
 			return function() {
 				infowindow.setContent(m.title);
 				infowindow.open(map, m);
