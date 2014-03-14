@@ -1,4 +1,7 @@
 console.log("in js file");
+
+var blueLine = [["Blue", "Airport", "42.374262", "-71.030395"], ["Blue", "Aquarium", "42.359784", "-71.051652"], ["Blue", "Beachmont", "42.39754234", "-70.99231944"], ["Blue", "Bowdoin", "42.361365", "-71.062037"], ["Blue", "Government Center", "42.359705", "-71.05921499999999"], ["Blue", "Maverick", "42.36911856", "-71.03952958000001"], ["Blue", "Orient Heights", "42.386867", "-71.00473599999999"], ["Blue", "Revere Beach", "42.40784254", "-70.99253321"], ["Blue", "State Street", "42.358978", "-71.057598"], ["Blue", "Suffolk Downs", "42.39050067", "-70.99712259"], ["Blue", "Wonderland", "42.41342", "-70.991648"], ["Blue", "Wood Island", "42.3796403", "-71.02286539000001"]]
+
 var myLat = 0;
 var myLng = 0;
 var request = new XMLHttpRequest();
@@ -47,6 +50,15 @@ function renderMap()
 		title: "Here I Am!"
 	});
 	marker.setMap(map);
+
+	for (station in blueLine) {
+		console.log(station);
+		stationMarker = new google.maps.Marker({
+			position: new google.maps.LatLng(station[2], station[3]),
+			title: station[1] // Station name
+		});
+		stationMarker.setMap(map);
+	}
 
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
