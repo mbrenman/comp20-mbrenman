@@ -95,7 +95,7 @@ function renderTLine(color)
 {
 
 	lineColor = chooseColor(color);
-	alert("nnnew commit");
+	alert("new commit");
 	tstationline = tlines[color]
 	console.log("all the line");
 	console.log(tstationline);
@@ -143,6 +143,22 @@ function makeScheduleTable(stop)
 			+		"<td style='border: 1px solid black; font-weight:bold;'>Trip ID</td>"
 			+	"</tr>";
 	trains = scheduleData["schedule"];
+	tableElems = pullStopPredictionData(stop);
+	tableElems = tableElems.sort(function(a,b){ return a[1] - b[1] });
+	for (t in tableElems){
+		row = tableElems[t];
+		tbl += "<tr style='border: 1px solid black;'>";
+		for (i in row) {
+			tbl += "<td style='border: 1px solid black;'>" + row[i] + "</td>";
+		}
+		tbl += "</tr>";
+	}
+	tbl += "</table>";
+	return tbl;
+}
+
+function pullStopPredictionData(stop)
+{
 	tableElems = [];
 	for (t in trains) {
 		train = trains[t];
@@ -157,19 +173,7 @@ function makeScheduleTable(stop)
 			}
 		}
 	}
-	tableElems = tableElems.sort(function(a,b){ return a[1] - b[1] });
-	console.log(tableElems);
-	console.log("there it is!");
-	for (t in tableElems){
-		row = tableElems[t];
-		tbl += "<tr style='border: 1px solid black;'>";
-		for (i in row) {
-			tbl += "<td style='border: 1px solid black;'>" + row[i] + "</td>";
-		}
-		tbl += "</tr>";
-	}
-	tbl += "</table>";
-	return tbl;
+	return tableElems;
 }
 
 function addPolyLine(stopLatLngArr, map, lineColor){
