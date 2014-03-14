@@ -7,7 +7,7 @@ var tlines = {
 	"Red"    : redLine,
 	"Blue"   : blueLine,
 	"Orange" : orangeLine
-}
+};
 
 var myLat = 0;
 var myLng = 0;
@@ -70,7 +70,7 @@ function renderMap()
 	alert ("should be rendered!")
 }
 
-fun renderTLine(color)
+function renderTLine(color)
 {
 	tstationline = tlines[color]
 	for (i in tstationline) {
