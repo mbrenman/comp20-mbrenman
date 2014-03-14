@@ -159,9 +159,11 @@ function renderTLine(color)
 }
 
 function addTStation(name, loc, map){
+	t_icon = 'images/stop.png';
 	stationMarker = new google.maps.Marker({
 		position: loc,
-		title: name // Station name
+		title: name, // Station name
+		icon: t_icon
 	});
 	// console.log(name);
 	stationMarker.setMap(map);
