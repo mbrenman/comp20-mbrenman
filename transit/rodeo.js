@@ -28,6 +28,7 @@ var scheduleData;
 function init()
 {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	console.log("initting");
 	getScheduleData();
 }
 
@@ -35,6 +36,7 @@ function getScheduleData(){
 	xhr = new XMLHttpRequest();
 	xhr.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true); // this is possible because of cross-origin resource sharing (CORS) enabled for web application
 	xhr.onreadystatechange = dataReady;
+	console.log("sending xhr request");
 	xhr.send(null); // Go! Execute!
 }
 
@@ -55,6 +57,7 @@ function getMyLocation()
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
+			console.log("about to render map");
 			renderMap();
 		});
 	}
@@ -77,6 +80,7 @@ function renderMap()
 	});
 	marker.setMap(map);
 
+	console.log("about to render line");
 	renderTLine(scheduleData["line"]);
 
 	// Open info window on click of marker
