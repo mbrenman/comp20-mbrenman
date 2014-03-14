@@ -135,7 +135,13 @@ function addTStation(name, loc, map){
 
 function makeScheduleTable(stop)
 {
-	tbl = "<table style='border: 1px solid black;'>";
+	tbl = "<table style='border: 1px solid black;'>"
+			+	"<tr style='border: 1px solid black;'>"
+			+		"<td style='border: 1px solid black; font-weight:bold;'>Stop</td>"
+			+		"<td style='border: 1px solid black; font-weight:bold;'>Time Remaining</td>" 
+			+		"<td style='border: 1px solid black; font-weight:bold;'>Destination</td>" 
+			+		"<td style='border: 1px solid black; font-weight:bold;'>Trip ID</td>"
+			+	"</tr>";
 	trains = scheduleData["schedule"];
 	for (t in trains) {
 		train = trains[t];
@@ -149,7 +155,7 @@ function makeScheduleTable(stop)
 				tableElems.push(pred);
 			}
 		}
-		tableElems.sort(function(a,b){ return a[1] - b[1] });
+		tableElems = tableElems.sort(function(a,b){ return a[1] - b[1] });
 		for (t in tableElems){
 			row = tableElems[t];
 			tbl += "<tr style='border: 1px solid black;'>";
