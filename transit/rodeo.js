@@ -116,25 +116,22 @@ function displayClosestStation()
 
 function haversine(lat1, lon1, lat2, lon2){
 	//From: http://www.movable-type.co.uk/scripts/latlong.html
-
-	if (typeof(Number.prototype.toRad) === "undefined") {
-		/** Converts numeric degrees to radians */
-	  	Number.prototype.toRad = function() {
-	    	return this * Math.PI / 180;
-		}
-	}
-
 	var R = 6371; // km
-	var dLat = (lat2-lat1).toRad();
-	var dLon = (lon2-lon1).toRad();
-	var lat1 = lat1.toRad();
-	var lat2 = lat2.toRad();
+	var dLat = toRad((lat2-lat1));
+	var dLon = toRad((lon2-lon1));
+	var lat1 = toRad(lat1);
+	var lat2 = toRad(lat2);
 
 	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
         Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	var d = R * c;
 	return d / 1.609344; //To be miles
+}
+
+function toRad(num)
+{
+	return num * Math.PI / 180;
 }
 
 function renderTLine(color)
