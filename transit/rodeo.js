@@ -91,7 +91,7 @@ function renderTLine(color)
 				infowindow.setContent(m.title);
 				infowindow.open(map, m);
 			}
-		})(stationMarker);
+		})(stationMarker));
 	}
 }
 
