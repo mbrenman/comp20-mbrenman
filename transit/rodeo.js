@@ -123,7 +123,15 @@ function haversine(lat1, lon1, lat2, lon2){
         Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	var d = R * c;
-	return d / 1.609344 //To be miles
+	return d / 1.609344; //To be miles
+}
+
+/** Converts numeric degrees to radians */
+//From: http://www.movable-type.co.uk/scripts/latlong.html
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
 }
 
 function renderTLine(color)
