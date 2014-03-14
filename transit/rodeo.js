@@ -89,7 +89,7 @@ function renderMap()
 
 function renderTLine(color)
 {
-	color = "red";
+	lineColor = chooseColor(color);
 	alert(color);
 	tstationline = tlines[color]
 	console.log("all the line");
@@ -129,11 +129,22 @@ function renderTLine(color)
 		var pLine = new google.maps.Polyline({
 		  path: stopLatLngArr,
 		  geodesic: true,
-		  strokeColor: '#FF0000',
+		  strokeColor: lineColor,
 		  strokeOpacity: 1.0,
 		  strokeWeight: 2
 		});
 		pLine.setMap(map);
+	}
+}
+
+function chooseColor(color)
+{
+	if (color == "orange"){
+		return "#ffa500"
+	} else if (color == "red"){
+		return "ff0000"
+	} else if (color == "blue"){
+		return "#0000ff"
 	}
 }
 
