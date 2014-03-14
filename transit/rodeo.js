@@ -56,18 +56,6 @@ function renderMap()
 	alert ("should be rendered!")
 }
 
-// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-function callback(results, status)
-{
-	if (status == google.maps.places.PlacesServiceStatus.OK) {
-		alert("Got places back!");
-		places = results;
-		for (var i = 0; i < results.length; i++) {
-			createMarker(results[i]);
-		}
-	}
-}
-
 function createMarker(place)
 {
 	var placeLoc = place.geometry.location;
