@@ -110,7 +110,7 @@ function displayClosestStation()
 	}
 	console.log(shortestDist);
 	console.log(closestStation);
-	return "<h1><You are here</h1>The closest station to you is <em>" + closestStation + "</em>, which is ~" + shortestDist + " miles away from you.";
+	return "<h2>You are here</h2><div>The closest station to you is <strong>" + closestStation + "</strong>, which is ~" + shortestDist + " miles away from you.</div>";
 }
 
 function haversine(lat1, lon1, lat2, lon2){
