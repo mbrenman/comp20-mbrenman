@@ -83,6 +83,11 @@ function renderTLine(color)
 		});
 		console.log(name);
 		stationMarker.setMap(map);
+
+		google.maps.event.addListener(stationMarker, 'click', function() {
+			infowindow.setContent(marker.title);
+			infowindow.open(map, marker);
+		});
 	}
 }
 
