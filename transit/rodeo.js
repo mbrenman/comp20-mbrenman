@@ -128,9 +128,26 @@ function addTStation(name, loc, map){
 	google.maps.event.addListener(stationMarker, 'click', (function(m) {
 		return function() {
 			infowindow.setContent(m.title);
+			makeScheduleTable(m.title);
 			infowindow.open(map, m);
 		}
 	})(stationMarker));
+}
+
+function makeScheduleTable(stop)
+{
+	trains = scheduleData["schedule"];
+	for (t in trains) {
+		train = trains[t];
+		dest = train["Destination"];
+		predicts = train["Predictions"];
+		for (p in predicts) {
+			stationData = predicts[p];
+			if (stationData["Stop"] == stop) {
+				console.log(stationData);
+			}
+		}
+	}
 }
 
 function addPolyLine(stopLatLngArr, map, lineColor){
@@ -158,10 +175,11 @@ function chooseColor(color)
 function createMarker(place)
 {
 	var placeLoc = place.geometry.location;
+	var image = 'stop.png'
 	var marker = new google.maps.Marker({
 		map: map,
 		position: placeLoc,
-		icon: 'stop.png'
+		icon: image
 	});
 
 	google.maps.event.addListener(marker, 'click', function() {
