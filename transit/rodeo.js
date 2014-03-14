@@ -89,8 +89,9 @@ function renderMap()
 
 function renderTLine(color)
 {
+
 	lineColor = chooseColor(color);
-	alert(color);
+	alert("newest commit");
 	tstationline = tlines[color]
 	console.log("all the line");
 	console.log(tstationline);
@@ -102,39 +103,41 @@ function renderTLine(color)
 		stopLatLngArr = new Array();
 		for (s in line) {
 			station = line[s];
-			
-			console.log(station);
 			name = station[0];
 			loc = new google.maps.LatLng(station[1], station[2]);
-
 			stopLatLngArr.push(loc);
-
-			stationMarker = new google.maps.Marker({
-				position: loc,
-				title: name // Station name
-			});
-			// console.log(name);
-			stationMarker.setMap(map);
-
-			// console.log("new");
-
-			google.maps.event.addListener(stationMarker, 'click', (function(m) {
-				return function() {
-					infowindow.setContent(m.title);
-					infowindow.open(map, m);
-				}
-			})(stationMarker));
+			addTStation(name, loc, map);
+			console.log(station);
 		}
-		console.log("ADDING POLY LINE");
-		var pLine = new google.maps.Polyline({
-		  path: stopLatLngArr,
-		  geodesic: true,
-		  strokeColor: lineColor,
-		  strokeOpacity: 1.0,
-		  strokeWeight: 2
-		});
-		pLine.setMap(map);
+		addPolyLine(stopLatLngArr, map, lineColor)
+
 	}
+}
+
+function addTStation(name, loc, map){
+	stationMarker = new google.maps.Marker({
+		position: loc,
+		title: name // Station name
+	});
+	// console.log(name);
+	stationMarker.setMap(map);
+	google.maps.event.addListener(stationMarker, 'click', (function(m) {
+		return function() {
+			infowindow.setContent(m.title);
+			infowindow.open(map, m);
+		}
+	})(stationMarker));
+}
+
+function addPolyLine(stopLatLngArr, map, lineColor){
+	var pLine = new google.maps.Polyline({
+	  path: stopLatLngArr,
+	  geodesic: true,
+	  strokeColor: lineColor,
+	  strokeOpacity: 1.0,
+	  strokeWeight: 4
+	});
+	pLine.setMap(map);	
 }
 
 function chooseColor(color)
