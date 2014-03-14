@@ -135,23 +135,28 @@ function addTStation(name, loc, map){
 
 function makeScheduleTable(stop)
 {
-	tbl = "<table>";
+	tbl = "<table style='border: 1px solid black;'>";
 	trains = scheduleData["schedule"];
 	for (t in trains) {
 		train = trains[t];
 		dest = train["Destination"];
 		predicts = train["Predictions"];
+		tableElems = [];
 		for (p in predicts) {
 			stationData = predicts[p];
 			if (stationData["Stop"] == stop) {
-				tbl += "<tr>";
-				tbl += "<td>" + stop + "</td>";
-				tbl += "<td>" + stationData["Seconds"] + "</td>";
-				tbl += "<td>" + dest + "</td>";
-				tbl += "<td>" + train["TripID"] + "</td>";
-				console.log(stationData);
-				tbl += "</tr>";
+				pred = [stop, stationData["Seconds"], dest, train["TripID"]];
+				tableElems.push(pred);
 			}
+		}
+		tableElems.sort(function(a,b){ return a[1] > b[1] });
+		for (t in tableElems){
+			row = tableElems[t];
+			tbl += "<tr>";
+			for (i in row) {
+				tbl += "<td>" + row[i] + "</td>";
+			}
+			tbl += "</tr>";
 		}
 	}
 	tbl += "</table>";
