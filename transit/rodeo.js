@@ -91,7 +91,7 @@ function renderTLine(color)
 {
 
 	lineColor = chooseColor(color);
-	alert("newest commit");
+	alert("newnew commit");
 	tstationline = tlines[color]
 	console.log("all the line");
 	console.log(tstationline);
@@ -153,6 +153,7 @@ function chooseColor(color)
 
 function createMarker(place)
 {
+	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
 		map: map,
