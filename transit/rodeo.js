@@ -28,7 +28,6 @@ var scheduleData;
 function init()
 {
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-	console.log("initting");
 	getScheduleData();
 }
 
@@ -36,14 +35,12 @@ function getScheduleData(){
 	xhr = new XMLHttpRequest();
 	xhr.open("get", "http://mbtamap.herokuapp.com/mapper/rodeo.json", true); // this is possible because of cross-origin resource sharing (CORS) enabled for web application
 	xhr.onreadystatechange = dataReady;
-	console.log("sending xhr request");
 	xhr.send(null); // Go! Execute!
 }
 
 function dataReady() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
 		scheduleData = JSON.parse(xhr.responseText);
-		console.log(scheduleData["line"]);
 		getMyLocation(); //Start making the map only after we know what line we should render
 	}
 	else if (xhr.readyState == 4 && xhr.status == 500) {
@@ -57,7 +54,6 @@ function getMyLocation()
 		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
 			myLng = position.coords.longitude;
-			console.log("about to render map");
 			renderMap();
 		});
 	}
@@ -80,7 +76,6 @@ function renderMap()
 	});
 	marker.setMap(map);
 
-	console.log("about to render line");
 	renderTLine(scheduleData["line"]);
 
 	// Open info window on click of marker
@@ -88,7 +83,6 @@ function renderMap()
 		infowindow.setContent(displayClosestStation());
 		infowindow.open(map, marker);
 	});
-	alert ("should be rendered!")
 }
 
 function displayClosestStation()
@@ -99,7 +93,6 @@ function displayClosestStation()
 	for (b in line) {
 		branch = line[b];
 		for (s in branch) {
-			console.log(branch[s][0]);
 			stop = branch[s];
 			dist = haversine(myLat,myLng,stop[1],stop[2]);
 			if (dist < shortestDist) {
@@ -108,8 +101,6 @@ function displayClosestStation()
 			}
 		}
 	}
-	console.log(shortestDist);
-	console.log(closestStation);
 	return "<h2>You are here</h2><div>The closest station to you is <strong>" + closestStation + "</strong>, which is ~" + shortestDist + " miles away from you.</div>";
 }
 
@@ -136,15 +127,9 @@ function toRad(num)
 function renderTLine(color)
 {
 	lineColor = chooseColor(color);
-	alert("newnewnew commit");
 	tstationline = tlines[color]
-	console.log("all the line");
-	console.log(tstationline);
 	for (i in tstationline) {
-		console.log(i);
 		line = tstationline[i];
-		console.log("one branch");
-		console.log(line);
 		stopLatLngArr = new Array();
 		for (s in line) {
 			station = line[s];
@@ -152,7 +137,6 @@ function renderTLine(color)
 			loc = new google.maps.LatLng(station[1], station[2]);
 			stopLatLngArr.push(loc);
 			addTStation(name, loc, map);
-			console.log(station);
 		}
 		addPolyLine(stopLatLngArr, map, lineColor)
 	}
@@ -165,7 +149,6 @@ function addTStation(name, loc, map){
 		title: name, // Station name
 		icon: t_icon
 	});
-	// console.log(name);
 	stationMarker.setMap(map);
 	google.maps.event.addListener(stationMarker, 'click', (function(m) {
 		return function() {
@@ -224,7 +207,7 @@ function addPolyLine(stopLatLngArr, map, lineColor){
 	  geodesic: true,
 	  strokeColor: lineColor,
 	  strokeOpacity: 1.0,
-	  strokeWeight: 4
+	  strokeWeight: 7
 	});
 	pLine.setMap(map);	
 }
