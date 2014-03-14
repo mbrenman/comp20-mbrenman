@@ -94,11 +94,15 @@ function renderTLine(color)
 	for (i in tstationline) {
 		line = tstationline[i]
 		console.log(line);
+		stopLatLngArr = new Array();
 		for (s in line) {
 			station = line[s];
 			console.log(station);
 			name = station[0];
 			loc = new google.maps.LatLng(station[1], station[2]);
+
+			stopLatLngArr.push(loc);
+
 			stationMarker = new google.maps.Marker({
 				position: loc,
 				title: name // Station name
@@ -115,6 +119,16 @@ function renderTLine(color)
 				}
 			})(stationMarker));
 		}
+
+		var pLine = new google.maps.Polyline({
+		  path: stopLatLngArr,
+		  geodesic: true,
+		  strokeColor: '#FF0000',
+		  strokeOpacity: 1.0,
+		  strokeWeight: 2
+		});
+
+		flightPath.setMap(map);
 	}
 }
 
