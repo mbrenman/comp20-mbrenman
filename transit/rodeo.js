@@ -85,8 +85,8 @@ function renderTLine(color)
 		stationMarker.setMap(map);
 
 		google.maps.event.addListener(stationMarker, 'click', function() {
-			infowindow.setContent(station.title);
-			infowindow.open(map, station);
+			infowindow.setContent(stationMarker.title);
+			infowindow.open(map, stationMarker);
 		});
 	}
 }
