@@ -51,7 +51,8 @@ function renderMap()
 	});
 	marker.setMap(map);
 
-	for (station in blueLine) {
+	for (i in blueLine) {
+		station = blueLine[i];
 		console.log(station);
 		stationMarker = new google.maps.Marker({
 			position: new google.maps.LatLng(station[2], station[3]),
