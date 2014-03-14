@@ -94,7 +94,7 @@ function renderTLine(color)
 	for (i in tstationline) {
 		line = tstationline[i]
 		console.log(line);
-		for (s in line)
+		for (s in line) {
 			station = line[s];
 			console.log(station);
 			name = station[0];
@@ -114,6 +114,7 @@ function renderTLine(color)
 					infowindow.open(map, m);
 				}
 			})(stationMarker));
+		}
 	}
 }
 
