@@ -91,7 +91,7 @@ function renderTLine(color)
 {
 
 	lineColor = chooseColor(color);
-	alert("newnew commit");
+	alert("nnnew commit");
 	tstationline = tlines[color]
 	console.log("all the line");
 	console.log(tstationline);
@@ -153,12 +153,11 @@ function chooseColor(color)
 
 function createMarker(place)
 {
-	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
 		map: map,
 		position: placeLoc,
-		icon: iconBase + 'MBTA-logo.png'
+		icon: 'stop.png'
 	});
 
 	google.maps.event.addListener(marker, 'click', function() {
