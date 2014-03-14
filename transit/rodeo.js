@@ -53,15 +53,7 @@ function renderMap()
 		infowindow.setContent(marker.title);
 		infowindow.open(map, marker);
 	});
-
-	// Calling Google Places API
-	var request = {
-		location: me,
-		radius: '500',
-		types: ['food']
-	};
-	service = new google.maps.places.PlacesService(map);
-	service.search(request, callback);
+	alert ("should be rendered!")
 }
 
 // Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
