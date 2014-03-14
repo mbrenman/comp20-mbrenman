@@ -93,8 +93,10 @@ function renderTLine(color)
 	tstationline = tlines[color]
 	for (i in tstationline) {
 		line = tstationline[i]
+		console.log(line);
 		for (splits in line)
 			station = line[i];
+			console.log(station);
 			name = station[0];
 			loc = new google.maps.LatLng(station[1], station[2]);
 			stationMarker = new google.maps.Marker({
