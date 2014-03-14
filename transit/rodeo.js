@@ -89,14 +89,19 @@ function renderMap()
 
 function renderTLine(color)
 {
+	color = "red";
 	alert(color);
 	tstationline = tlines[color]
+	console.log("all the line");
+	console.log(tstationline);
 	for (i in tstationline) {
 		line = tstationline[i]
+		console.log("one branch");
 		console.log(line);
 		stopLatLngArr = new Array();
 		for (s in line) {
 			station = line[s];
+			
 			console.log(station);
 			name = station[0];
 			loc = new google.maps.LatLng(station[1], station[2]);
