@@ -125,15 +125,16 @@ function renderTLine(color)
 				}
 			})(stationMarker));
 		}
+		console.log("ADDING POLY LINE");
+		var pLine = new google.maps.Polyline({
+		  path: stopLatLngArr,
+		  geodesic: true,
+		  strokeColor: '#FF0000',
+		  strokeOpacity: 1.0,
+		  strokeWeight: 2
+		});
+		pLine.setMap(map);
 	}
-		// var pLine = new google.maps.Polyline({
-		//   path: stopLatLngArr,
-		//   geodesic: true,
-		//   strokeColor: '#FF0000',
-		//   strokeOpacity: 1.0,
-		//   strokeWeight: 2
-		// });
-		// pLine.setMap(map);
 }
 
 function createMarker(place)
