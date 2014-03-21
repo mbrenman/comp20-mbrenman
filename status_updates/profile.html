@@ -9,17 +9,12 @@
         var statusElem = document.getElementById("msg");
         var status = statusElem.value;
         statusElem.value = ''; //Clear out the message bar to signal successful post
-
-        var update_list = document.getElementById("status");
         var stamp = getPostTimeStamp();
-        
-        var elem = document.createElement("div");
-        elem.innerHTML = stamp + status;
-
-        update_list.insertBefore(elem, update_list.firstChild);
+        localStorage.setItem(new Date().getTime(), stamp + status);
+        reload();
     };
 
-    function getPostTimeStamp () {
+    function getPostTimeStamp() {
         var dateobj = new Date();
         var days = dateobj.getDate();
         var mons = dateobj.getMonth() + 1;
@@ -28,6 +23,17 @@
         var mins = dateobj.getMinutes();
         return mons + '/' + days + '/' + years + ' ' + hours + ':' + mins + ' - ';
     };
+
+    function reload() {
+        console.log("reload");
+        elem = document.getElementById("status");
+        output = "";
+        for (key in localStorage) {
+            output = output + "<p>" + localStorage[key] + "</p>\n";
+        }
+        elem.innerHTML = output;
+    };
+
 </script>
 </head>
 
