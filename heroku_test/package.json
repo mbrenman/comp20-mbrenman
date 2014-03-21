@@ -1,0 +1,22 @@
+{
+  "name": "heroku_test",
+  "version": "0.0.0",
+  "description": "This example app is so cool!",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuftsdev/comp20-mbrenman/heroku_test"
+  },
+  "keywords": [
+    "example"
+  ],
+  "author": "Matt Brenman",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "logfmt": "~1.0.0-pre3",
+    "express": "~3.5.0"
+  }
+}
