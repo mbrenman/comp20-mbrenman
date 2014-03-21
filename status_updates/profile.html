@@ -28,7 +28,7 @@
         elem = document.getElementById("status");
         output = "";
         for (key in localStorage) {
-            output = output + "<p>" + localStorage[key] + "</p>\n";
+            output =  "<p>" + localStorage[key] + "</p>\n" + output;
         }
         elem.innerHTML = output;
     };
