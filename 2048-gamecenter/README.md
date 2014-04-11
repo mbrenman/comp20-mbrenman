@@ -1,7 +1,7 @@
 Assignment 4 - 2048 Gamecenter
-Comp 20 Web Programming
-Matt Brenman
-============
+==============================
+Comp 20 Web Programming - Matt Brenman
+--------------------------------------
 - All aspects of the assignment have been correctly implemented
 - No collaboration
 - Approx 7 hours spent on this project
