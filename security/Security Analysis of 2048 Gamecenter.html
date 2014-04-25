@@ -1,0 +1,106 @@
+<h1>Security Analysis of 2048 Gamecenter</h1>
+
+<p>Matt Brenman</p>
+
+<h2>Introduction</h2>
+
+<p>The product to be analyzed is a game center built as an extension of the popular game 2048. The original game only tracks one user's highest score, using LocalStorage, but the game center keeps track of many user's scores, for a very long period of time. The developer accomplished this task by using server-side code to manage a database of scores, using MongoDB. Persistent storage accessible by different users opens up more potential issues. My task is to perform a security analysis of the project, finding potential vulnerabilities and providing recommendations of how to fix the issues.</p>
+
+<h2>Methodology</h2>
+
+<p>My initial tests on the system were done in a black-box fashion, as if I were attacking the live system. I had no access to the code, and used curl to pen test the application. I found multiple vulnerabilities. </p>
+
+<p>Then I looked at the source code (provided by the developer) to probe for additional security vulnerabilities.</p>
+
+<p>Note: I ran the code locally to test the project, so I was attacking a local instance of a Mongo database, not a live instance hosted on Heroku.</p>
+
+<h2>Abstract of Findings</h2>
+
+<p>As discovered in the black-box initial testing phase, the main security vulnerabilities came from trusting user input. There was no attempt to clean the data being sent to the system. Also, once I looked at the code, I discovered that there was another issue with the database schema that did not correctly follow the assignment specification.</p>
+
+<h2>Issues Found</h2>
+
+<p><strong>Injection of Javascript code (XSS) - In all of the fields</strong></p>
+
+<ul>
+<li>Data submitted through the POST API (/submit.json) does not go through any cleaning, and is presented exactly as it was entered into the system. This allows an attacker to inject arbitrary javascript code that will run on the client's browser. MongoDB also does not encode the data in any way, and while the jade template engine does encode data, the developer did not use it.</li>
+<li>This exploit also poses a risk to other web applications that depend on data from this application's GET API ('/scores.json'). If they trust this application to give only safe data (which it should not assume), then the injected code could propogate through multiple pages.</li>
+</ul>
+
+<p><strong>Injection of Javascript code specific to Username Field (XSS)</strong></p>
+
+<ul>
+<li>Affects GET API</li>
+<li>Priority Level: High</li>
+<li>This vulnerability can be exploited with <code>curl</code> using a command like <code>curl -d "username=&lt;script&gt;alert('XSS')&lt;/script&gt;&amp;score=9000&amp;grid=/" gamecenter-2048.herokuapp.com/submit.json</code></li>
+</ul>
+
+<p><strong>Injection of Javascript code specific to Score Field (XSS)</strong></p>
+
+<ul>
+<li>Affects GET API</li>
+<li>Priority Level: High</li>
+<li>In addition to not escaping user input, this field does not enforce that the score be a number, which is the end goal of this field</li>
+<li>This vulnerability can be exploited with <code>curl</code> using a command like <code>curl -d "username=f@k3UzR&amp;score=&lt;script&gt;alert('XSS')&lt;/script&gt;&amp;grid=/" gamecenter-2048.herokuapp.com/submit.json</code></li>
+</ul>
+
+<p><strong>Injection of Javascript code specific to Grid Field (XSS)</strong></p>
+
+<ul>
+<li>Affects GET API</li>
+<li>Priority Level: High</li>
+<li>In addition to not escaping user input, this field does not enforce that the grid follows the typical grid format, which makes it much easier for an attacker to exploit the system. This field is also not displayed on the home page ('/'), so it may not be immediately obvious that code has been injected until the data is accessed with the GET API ('/scores.json'), which makes it more likely to go unnoticed. </li>
+<li>This vulnerability can be exploited with <code>curl</code> using a command like <code>curl -d "username=f@k3UzR&amp;grid=&lt;script&gt;alert('XSS')&lt;/script&gt;&amp;score=9000" gamecenter-2048.herokuapp.com/submit.json</code></li>
+</ul>
+
+<p><strong>Flooding MongoLabs Database</strong></p>
+
+<ul>
+<li>Affects POST API</li>
+<li>Priority Level: Medium/High</li>
+<li>Due to the CORS issue, I could write a simple script to repeatedly POST data to the server. The data inserted has no size limits imposed by the server, and there is no burst rate limitation, so I could send data as fast as my computer (or other service) could. This could quickly fill up the database, which would either shut down the system or charge the card on file. </li>
+</ul>
+
+<p><strong>Mangling of presentation (Injection of HTML/CSS) in Username</strong></p>
+
+<ul>
+<li>Affects GET API</li>
+<li>Priority Level: Medium</li>
+<li>Data submitted through the POST API (/submit.json) does not go through any cleaning, and is presented exactly as it was entered into the system. This allows an attacker to input whatever HTML/CSS elements they like into the page. This includes images, videos, random text, mismatched HTML tags to stop the table from rendering correctly, or any number of other items. This can be a burden, but can be easily fixed, and likely will leave the page still (slightly) usable.</li>
+<li>This vulnerability can be exploited with <code>curl</code> using a command like <code>curl -d "username=MEOW&amp;score=&lt;img src='http://o.onionstatic.com/images/7/7954/original/700.hq.jpg?3818'/&gt;&amp;grid=I CAN HAZ GRID?" gamecenter-2048.herokuapp.com/submit.json</code></li>
+</ul>
+
+<p><strong>CORS issue</strong></p>
+
+<ul>
+<li>Affects POST API</li>
+<li>Priority Level: Medium</li>
+<li>Right now, the server allows everybody to connect by using the line <code>res.header("Access-Control-Allow-Origin", "*");</code>. This allows scripts to flood the database with requests, enabling flooding the database for DOS attacks or running up charges in MongoLabs.</li>
+</ul>
+
+<p><strong>Improperly Designed Database Schema</strong></p>
+
+<ul>
+<li>Affects POST/GET API</li>
+<li>Priority Level: Low</li>
+<li>The POST API (/submit.json) takes in a parameter called <code>created_at</code>, which is not specified in the assignment specification. The <code>created_at</code> variable should be created in the server-side code when the request is processed, but it is not in this case. While this does not stop the system from working, it allows another entrance point for injection of HTML/CSS/JS, and it may affect users that try to use the data from this system, as it may be missing. A value of <code>null</code> is displayed for the field when data is not sent during the POST request.</li>
+</ul>
+
+<h2>Conclusion - Fixing the System</h2>
+
+<p>Most of the security vulnerabilities could be resolved by escaping user input and checking that it conforms to the specified format before storing it into the database. Javascript has a built-in function to do this called <code>escape()</code> that should be used when the data is taken from the POST request. </p>
+
+<p>To test that the <code>scores</code> and <code>grid</code> parameters follow the correct format, I would recommend writing a function to test each one that work in the following way:</p>
+
+<ul>
+<li>To test <code>score</code>, try to call <code>parseInt()</code> on the score wrapped within a <code>try/catch</code> block, and accept if the string can be successfully parsed as an integer.</li>
+<li>To test <code>grid</code>, create a function that uses JSON.parse and goes through each element of the grid, checking for the correct lengths and calling <code>parseInt()</code> on each grid cell number. This will be wrapped in a <code>try/catch</code> block and will accept if the string can be successfully parsed as an grid.</li>
+</ul>
+
+<p>To fix the database schema issue, the POST API be modified to not take in a <code>created_at</code> variable, as this allows the malicious user to supply artificial data, and the <code>created_at</code> variable should be created when the POST request is called on the server side with <code>new Date()</code>.</p>
+
+<p>To fix the CORS issue, the server should only allow cross-origin calls from the specified client URI, the 2048 game, instead of using the asterisk.</p>
+
+<p>Fixing the CORS issue would help resolve the database flooding as well, as random scripts would not be able to send POST requests, but a burst limit could also be put in place. This may not be advisable since if the game were to get extremely popular, it would be bad if scores were denied for no reason (false positive).</p>
+
+<p>The system has many very dangerous vulnerablities, but luckily they have relatively straightforward fixes. I would recommend looking through the existing database and removing all tainted entries after removing the vulnerabilities, so that previous exploits do not continue to affect users.</p>
